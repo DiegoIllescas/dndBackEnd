@@ -18,14 +18,14 @@
     //Error cuando no mandan un json bien formado
     if(!$data) {
         header("HTTP/1.1 400 Bad Request");
-        echo json_encode(['success' => false, 'error' => 'Falta el JSON']);
+        echo json_encode(['success' => false, 'message' => 'Falta el JSON']);
         exit();
     }
 
     $dbConn = connect($db);
     if(!$dbConn) {
         header("HTTP/1.1 503 Service Unavailable");
-        echo json_encode(['success' => false, 'error' => 'Servicio no disponible']);
+        echo json_encode(['success' => false, 'message' => 'Servicio no disponible']);
         exit();
     }
 
@@ -48,7 +48,7 @@
         }
 
         $res = $stmt->fetch();
-        if(!password_verify($data['password'], $res['clave'])) {
+        if(!password_verify($data['clave'], $res['clave'])) {
             header("HTTP/1.1 400 Bad Request");
             echo json_encode(['success' => false, 'message' => 'Correo o contraseña incorrecto']);
             return;

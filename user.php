@@ -16,7 +16,7 @@
     $dbConn = connect($db);
     if(!$dbConn) {
         header("HTTP/1.1 503 Service Unavailable");
-        echo json_encode(['success' => false, 'error' => 'Servicio no disponible']);
+        echo json_encode(['success' => false, 'message' => 'Servicio no disponible']);
         return;
     }
 
@@ -25,7 +25,7 @@
 
     if(!$data) {
         header("HTTP/1.1 400 Bad Request");
-        echo json_encode(['success' => false, 'error' => 'Falta el JSON']);
+        echo json_encode(['success' => false, 'message' => 'Falta el JSON']);
         return;
     }
     //POST para registrar al usuario
@@ -66,14 +66,14 @@
 
     if($isAuth['status'] == 432) {
         header("HTTP/1.1 308 Session Expired");
-        echo json_encode(['success' => false, 'error' => 'Sesion expirada']);
+        echo json_encode(['success' => false, 'message' => 'Sesion expirada']);
         return;
     }
 
     //Error si no incluye el Token de Autenticacion
     if($isAuth['status'] == 401) {
         header("HTTP/1.1 401 Unauthorized");
-        echo json_encode(['success' => false, 'error' => 'No estas logueado']);
+        echo json_encode(['success' => false, 'message' => 'No estas logueado']);
         return;
     }
     
