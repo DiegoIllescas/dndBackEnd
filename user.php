@@ -59,5 +59,21 @@
     }
     //DELETE para borrar cuenta (softdelete)
 
-    //PATCH para actualizar datos como clave o foto
+    if($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+        if(!isset($data['correo'])) {
+            header("HTTP/1.1 400 Bad Request");
+            echo json_encode(['success' => false, 'message' => 'Parametros faltantes']);
+            return; 
+        }
+
+        $query = "UPDATE Usuario SET estado = :estado WHERE correo = :correo";
+        $stmt = $dbConn->prepare($query);
+        $stmt->bindValue(":estado", 0);
+        $stmt->bindValue(":correo", $data['correo']);
+        $stmt->execute();
+
+        echo json_encode(['success' => true, 'message' => 'Cuenta borrada con exito']);
+    }
+
+    //PUT para actualizar datos como clave o foto
 ?>
