@@ -28,7 +28,7 @@ Para hacerle peticiones unicamente en React realiza un fetch() a la direccion si
 
 ### Endpoints
 
-/user.php \
+/user.php
 
 Acepta peticiones POST y DELETE para registrar usuarios o eliminarlos(soft delete). \
 Para la peticion DELETE debes incluir a la peticion el header `Authorization` con el contenido `Bearer token` donde el token lo obtienes al iniciar sesion. 
