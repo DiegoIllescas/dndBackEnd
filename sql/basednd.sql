@@ -3,30 +3,32 @@ DROP DATABASE IF EXISTS basednd;
 CREATE DATABASE basednd DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE basednd;
 
-CREATE TABLE Usuario {
+CREATE TABLE Usuario (
     id_usuario int unsigned not null primary key auto_increment,
-    correo nvarchar(50) unique not null,
-    nombre nvarchar(50) unique,
-    clave nvarchar(256)
-};
+    correo varchar(50) unique not null,
+    nombre varchar(50),
+    foto_url varchar(150),
+    descripcion text,
+    estado int(2),
+    clave varchar(256)
+);
 
-CREATE TABLE Personaje {
+CREATE TABLE Personaje (
     id_personaje int unsigned not null primary key auto_increment,
     id_usuario int unsigned not null,
-    nombre nvarchar(100),
-    raza nvarchar(50),
-    subraza nvarchar(50),
-    clase nvarchar(50),
-    subraza nvarchar(50),
-    alineacion nvarchar(50),
+    nombre varchar(100),
+    raza varchar(50),
+    subraza varchar(50),
+    clase varchar(50),
+    alineacion varchar(50),
     historia text,
     ideales text,
-    edad int(100)
+    edad int(100),
     altura int(100),
     peso int(100),
-    color_ojos nvarchar(20),
-    color_piel nvarchar(20),
-    color_pelo nvarchar(20),
+    color_ojos varchar(20),
+    color_piel varchar(20),
+    color_pelo varchar(20),
     traits text,
     bonds text,
     flaws text,
@@ -37,22 +39,22 @@ CREATE TABLE Personaje {
     sabiduria int(100),
     carisma int(100),
     foreign key (id_usuario) references Usuario(id_usuario) ON DELETE CASCADE
-}
+);
 
---Travesia es campaña pero para no tener que usar la ñ lo dejo como travesia
-CREATE TABLE travesia {
+
+CREATE TABLE Travesia (
     id_travesia int unsigned not null primary key auto_increment,
     id_usuario int unsigned not null,
-    nombre nvarchar(100),
+    nombre varchar(100),
     fecha_creacion date,
     hora_creacion time,
     foreign key (id_usuario) references Usuario(id_usuario) ON DELETE CASCADE
-}
+);
 
-CREATE TABLE PersonajesPorTravesia {
+CREATE TABLE PersonajesPorTravesia (
     id_travesia int unsigned not null,
     id_personaje int unsigned not null,
-    estado nvarchar(30),
+    estado varchar(30),
     foreign key (id_travesia) references Travesia(id_travesia) ON DELETE CASCADE,
     foreign key (id_personaje) references Personaje(id_personaje) ON DELETE CASCADE
-}
+);
